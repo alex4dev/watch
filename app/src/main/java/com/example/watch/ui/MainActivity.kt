@@ -1,4 +1,4 @@
-package com.example.watch
+package com.example.watch.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
