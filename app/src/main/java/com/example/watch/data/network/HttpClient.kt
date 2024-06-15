@@ -1,6 +1,5 @@
-package com.example.watch.core.network
+package com.example.watch.data.network
 
-import android.util.Log
 import com.example.watch.core.ACCESS_TOKEN
 import com.example.watch.core.NETWORK_TIME_OUT
 import com.example.watch.core.utils.AppLogger
@@ -53,7 +52,7 @@ val httpClientAndroid = HttpClient(Android) {
 
     install(ResponseObserver) {
         onResponse { response ->
-            Log.d("HTTP status:", "${response.status.value}")
+            AppLogger.debug("HTTP status: ${response.status.value}")
         }
     }
 

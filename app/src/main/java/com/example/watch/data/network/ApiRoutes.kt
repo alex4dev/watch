@@ -1,4 +1,4 @@
-package com.example.watch.core.network
+package com.example.watch.data.network
 
 import com.example.watch.core.END_POINT
 

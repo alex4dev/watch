@@ -1,6 +1,6 @@
 package com.example.watch.core.di
 
-import com.example.watch.core.network.httpClientAndroid
+import com.example.watch.data.network.httpClientAndroid
 import com.example.watch.data.services.MoviesService
 import io.ktor.client.HttpClient
 import org.koin.dsl.module
