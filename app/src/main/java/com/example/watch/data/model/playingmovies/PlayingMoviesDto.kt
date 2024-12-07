@@ -22,7 +22,7 @@ data class PlayingDatesDto(
 @Serializable
 data class PlayingMovieDto(
     @SerialName("adult") val adult: Boolean,
-    @SerialName("backdrop_path") val backdropPath: String,
+    @SerialName("backdrop_path") val backdropPath: String?,
     @SerialName("genre_ids") val genreIds: List<Int>,
     @SerialName("id") val id: Int,
     @SerialName("original_language") val originalLanguage: String,

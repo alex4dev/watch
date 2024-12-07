@@ -1,7 +1,7 @@
 package com.example.watch.data.network
 
-import com.example.watch.core.ACCESS_TOKEN
-import com.example.watch.core.NETWORK_TIME_OUT
+import com.example.watch.core.Constants.ACCESS_TOKEN
+import com.example.watch.core.Constants.NETWORK_TIME_OUT
 import com.example.watch.core.utils.AppLogger
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android

@@ -1,5 +1,8 @@
 package com.example.watch.data.model.playingmovies
 
+import com.example.watch.core.Constants
+import com.example.watch.extensions.createImageUrl
+
 data class PlayingMovies(
     val dates: PlayingDates,
     val page: Int,
@@ -47,17 +50,22 @@ data class PlayingMovie(
     val popularity: Double = 0.0,
     val posterPath: String = "",
     val releaseDate: String = "",
+    val mediaType: String = if (releaseDate.isEmpty()) "tv" else "movie",
     val title: String = "",
     val video: Boolean = false,
     val voteAverage: Double = 0.0,
     val voteCount: Int = 0
 ) {
 
+    val posterUrl: String
+        get() = posterPath.takeIf { it.isNotBlank() }?.createImageUrl() ?: Constants.DEFAULT_IMAGE_FALLBACK_URL
+
+
     companion object {
         fun fromDto(dto: PlayingMovieDto): PlayingMovie = with(dto) {
             PlayingMovie(
                 adult = adult,
-                backdropPath = backdropPath,
+                backdropPath = backdropPath ?: "",
                 genreIds = genreIds,
                 id = id,
                 originalLanguage = originalLanguage,
