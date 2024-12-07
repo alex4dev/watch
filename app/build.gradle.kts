@@ -44,9 +44,9 @@ android {
     composeCompiler {
         enableStrongSkippingMode = true
     }
-/*    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
-    }*/
+    /*    composeOptions {
+            kotlinCompilerExtensionVersion = "1.5.1"
+        }*/
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -82,6 +82,10 @@ dependencies {
     implementation(libs.ktor.client.logging)
     implementation(libs.ktor.client.content.negotiation)
     implementation(libs.ktor.serialization.kotlinx.json)
+    // image loading
+    implementation(libs.coil.core)
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network)
 
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.androidx.lifecycle.runtime.compose.android)
