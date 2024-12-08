@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "267702475839",
+    "project_id": "watch-4ad35",
+    "storage_bucket": "watch-4ad35.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:267702475839:android:c3681df66df1a37499ec8a",
+        "android_client_info": {
+          "package_name": "com.kaemcorp.watch"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4R4qXNQmqGpkrw1WRWfX1xOocdRi6D94"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -3,14 +3,15 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.google.services)
 }
 
 android {
-    namespace = "com.example.watch"
+    namespace = "com.kaemcorp.watch"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.watch"
+        applicationId = "com.kaemcorp.watch"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -86,6 +87,9 @@ dependencies {
     implementation(libs.coil.core)
     implementation(libs.coil.compose)
     implementation(libs.coil.network)
+    // firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
 
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.androidx.lifecycle.runtime.compose.android)
