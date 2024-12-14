@@ -23,6 +23,15 @@ android {
         }
     }
 
+    signingConfigs {
+        create("release") {
+            keyAlias = findProperty("keyAlias") as String
+            keyPassword = findProperty("keyPassword") as String
+            storeFile = file(findProperty("storeFilePath") as String)
+            storePassword = findProperty("storePassword") as String
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
