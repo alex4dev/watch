@@ -81,8 +81,8 @@ jobs:
       #          file: ${{ steps.releaseApk.outputs.apkfile }}
 
       - name: Upload to Firebase App Distribution
-        run: ./gradlew appDistributionUploadRelease
         env:
           firebaseAppDistributionAppId: ${{ secrets.FIREBASE_APP_ID }}
           firebaseAppDistributionFile: ${{ github.workspace }}/firebase-service-account-key.json
           firebaseAppDistributionGroups: testers  # Or any other group
+        run: ./gradlew appDistributionUploadRelease
