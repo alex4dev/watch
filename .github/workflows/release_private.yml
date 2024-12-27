@@ -72,10 +72,17 @@ jobs:
         shell: powershell
 
 
-      - name: Upload artifact to Firebase App Distribution
-        uses: wzieba/Firebase-Distribution-Github-Action@v1
-        with:
-          appId: ${{secrets.FIREBASE_APP_ID}}
-          serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
-          groups: testers
-          file: ${{ steps.releaseApk.outputs.apkfile }}
+      #      - name: Upload artifact to Firebase App Distribution
+      #        uses: wzieba/Firebase-Distribution-Github-Action@v1
+      #        with:
+      #          appId: ${{secrets.FIREBASE_APP_ID}}
+      #          serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
+      #          groups: testers
+      #          file: ${{ steps.releaseApk.outputs.apkfile }}
+
+      - name: Upload to Firebase App Distribution
+        run: ./gradlew appDistributionUploadRelease
+        env:
+          firebaseAppDistributionAppId: ${{ secrets.FIREBASE_APP_ID }}
+          firebaseAppDistributionFile: ${{ github.workspace }}/firebase-service-account-key.json
+          firebaseAppDistributionGroups: testers  # Or any other group

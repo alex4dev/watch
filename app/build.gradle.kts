@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.google.services)
+    alias(libs.plugins.firebase.appdistribution)
 }
 
 android {
@@ -39,8 +40,23 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            // Firebase App Distribution configuration
+            firebaseAppDistribution {
+                serviceCredentialsFile =
+                    project.findProperty("firebaseAppDistributionFile")?.toString() ?: ""
+                groups = project.findProperty("firebaseAppDistributionGroups")?.toString() ?: ""
+                releaseNotes = "Automated release from Gradle"
+            }
         }
     }
+    flavorDimensions += "version"
+    productFlavors {
+        create("distributionTest") {
+            dimension = "version"
+        }
+    }
+
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
