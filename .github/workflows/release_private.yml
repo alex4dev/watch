@@ -57,7 +57,7 @@ jobs:
         run: |
           $apkfile = Get-ChildItem -Path app/build/outputs/apk/release -Filter *.apk | Select-Object -First 1
           echo "apkfile=$($apkfile.FullName)" >> $GITHUB_OUTPUT
-        shell: pwsh
+        shell: powershell
 
       - name: Decode and save Firebase service account key
         env:
