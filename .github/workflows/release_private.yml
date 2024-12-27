@@ -27,8 +27,8 @@ jobs:
       #        run: echo "date_today=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
 
       # Set Repository Name As Env Variable
-      - name: Set repository name as env variable
-        run: echo "repository_name=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')" >> $GITHUB_ENV
+      #      - name: Set repository name as env variable
+      #        run: echo "repository_name=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')" >> $GITHUB_ENV
 
       - name: Set Up JDK
         uses: actions/setup-java@v4
@@ -62,7 +62,7 @@ jobs:
         run: |
           echo $CREDENTIAL_FILE_CONTENT | base64 --decode > firebase-service-account-key.json
 
-      - name: Upload artifact to Firebase App Distribution - ${{ env.repository_name }}
+      - name: Upload artifact to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
           appId: ${{secrets.FIREBASE_APP_ID}}
