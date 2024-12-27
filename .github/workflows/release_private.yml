@@ -52,9 +52,12 @@ jobs:
       - name: Build apk release project (APK) - ${{ env.main_project_module }} module
         run: ./gradlew assembleRelease --stacktrace
 
-      - name: Get release file apk path
+      - name: Find APK file
         id: releaseApk
-        run: echo "apkfile=$(find app/build/outputs/apk/release/*.apk)" >> $GITHUB_OUTPUT
+        run: |
+          $apkfile = Get-ChildItem -Path app/build/outputs/apk/release -Filter *.apk | Select-Object -First 1
+          echo "apkfile=$($apkfile.FullName)" >> $GITHUB_OUTPUT
+        shell: pwsh
 
       - name: Decode and save Firebase service account key
         env:
