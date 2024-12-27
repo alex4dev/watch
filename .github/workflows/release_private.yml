@@ -55,7 +55,7 @@ jobs:
       - name: Find APK file
         id: releaseApk
         run: |
-          $apkfile = Get-ChildItem -Path app/build/outputs/apk/release -Filter *.apk | Select-Object -First 1
+          $apkfile = Get-ChildItem -Path app/build/outputs/apk/distributionTest/release -Filter *.apk | Select-Object -First 1
           echo "apkfile=$($apkfile.FullName)" >> $GITHUB_OUTPUT
         shell: powershell
 
