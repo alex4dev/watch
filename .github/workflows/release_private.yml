@@ -59,11 +59,18 @@ jobs:
           echo "apkfile=$($apkfile.FullName)" >> $GITHUB_OUTPUT
         shell: powershell
 
+      #      - name: Decode and save Firebase service account key
+      #        env:
+      #          FIREBASE_SERVICE_ACCOUNT_KEY: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
+      #        run: |
+      #          echo $CREDENTIAL_FILE_CONTENT | base64 --decode > firebase-service-account-key.json
       - name: Decode and save Firebase service account key
         env:
           FIREBASE_SERVICE_ACCOUNT_KEY: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
         run: |
-          echo $CREDENTIAL_FILE_CONTENT | base64 --decode > firebase-service-account-key.json
+          [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($env:FIREBASE_SERVICE_ACCOUNT_KEY)) | Out-File -FilePath firebase-service-account-key.json -Encoding utf8
+        shell: powershell
+
 
       - name: Upload artifact to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
