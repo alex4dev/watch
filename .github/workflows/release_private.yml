@@ -77,8 +77,13 @@ jobs:
 
 
       # Create APK Release
-      - name: Build apk release project (APK) - ${{ env.main_project_module }} module
-        run: ./gradlew assembleRelease --stacktrace
+      - name: Build signed release apk project (APK)
+        run: |
+          ./gradlew assembleRelease \
+          -PkeyAlias=${{ secrets.KEYSTORE_ALIAS }} \
+          -PkeyPassword=${{ secrets.KEYSTORE_PASSWORD }} \
+          -PstoreFilePath=${{ github.workspace }}/keystore.jks \
+          -PstorePassword=${{ secrets.KEYSTORE_PASSWORD }}
 
       - name: Find APK file
         id: releaseApk
@@ -109,4 +114,4 @@ jobs:
       #          file: ${{ steps.releaseApk.outputs.apkfile }}
 
       - name: Upload to Firebase App Distribution
-        run: ./gradlew appDistributionUploadRelease -PfirebaseAppDistributionFile=${{ github.workspace }}/firebase-service-account-key.json -PfirebaseAppDistributionGroups=${{ github.event.inputs.testers }}
+        run: ./gradlew appDistributionUploadRelease -PfirebaseAppDistributionFile=${{ github.workspace }}/firebase-service-account-key.json -PfirebaseAppDistributionGroups=${{ github.event.inputs.testers }} -PapkFilePath=apkfile

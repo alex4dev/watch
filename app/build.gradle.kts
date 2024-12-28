@@ -72,6 +72,8 @@ firebaseAppDistribution {
         project.findProperty("firebaseAppDistributionFile")?.toString() ?: ""
     groups = project.findProperty("firebaseAppDistributionGroups")?.toString() ?: ""
     releaseNotes = "Automated release from Gradle"
+    artifactType = "APK"
+    artifactPath = project.findProperty("apkFilePath")?.toString() ?: ""
 }
 
 dependencies {
