@@ -22,7 +22,6 @@ on:
         description: "Select testers"
         options:
           - testers
-          - android
           - internalTesters
           - everyone
 
