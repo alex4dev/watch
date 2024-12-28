@@ -55,9 +55,9 @@ jobs:
       - name: Run gradle tests
         run: ./gradlew test
 
-      # Run Build Project
-      - name: Build gradle project
-        run: ./gradlew build
+      #      # Run Build Project
+      #      - name: Build gradle project
+      #        run: ./gradlew build
 
       # This will decode the keystore from base 64 text representation that we have stored in secrets
       # and generates and keystore file and gets stored in /android-app path
@@ -114,4 +114,4 @@ jobs:
       #          file: ${{ steps.releaseApk.outputs.apkfile }}
 
       - name: Upload to Firebase App Distribution
-        run: ./gradlew appDistributionUploadRelease -PfirebaseAppDistributionFile=${{ github.workspace }}/firebase-service-account-key.json -PfirebaseAppDistributionGroups=${{ github.event.inputs.testers }} -PapkFilePath=apkfile
+        run: ./gradlew appDistributionUploadRelease -PfirebaseAppDistributionFile=${{ github.workspace }}/firebase-service-account-key.json -PfirebaseAppDistributionGroups=${{ github.event.inputs.testers }} -PapkFilePath=${{ steps.releaseApk.outputs.apkfile }}
