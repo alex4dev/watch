@@ -40,13 +40,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            // Firebase App Distribution configuration
-            firebaseAppDistribution {
-                serviceCredentialsFile =
-                    project.findProperty("firebaseAppDistributionFile")?.toString() ?: ""
-                groups = project.findProperty("firebaseAppDistributionGroups")?.toString() ?: ""
-                releaseNotes = "Automated release from Gradle"
-            }
+
         }
     }
     flavorDimensions += "version"
@@ -78,6 +72,14 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+}
+
+// Firebase App Distribution configuration
+firebaseAppDistribution {
+    serviceCredentialsFile =
+        project.findProperty("firebaseAppDistributionFile")?.toString() ?: ""
+    groups = project.findProperty("firebaseAppDistributionGroups")?.toString() ?: ""
+    releaseNotes = "Automated release from Gradle"
 }
 
 dependencies {
