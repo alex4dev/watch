@@ -90,7 +90,14 @@ jobs:
         id: releaseApk
         run: |
           $apkfile = Get-ChildItem -Path app/build/outputs/apk/release -Filter *.apk | Select-Object -First 1
-          echo "apkfile=$($apkfile.FullName)" >> $GITHUB_ENV
+              # Check if the file exists and display the path in the logs
+          if ($apkfile) {
+            echo "Found APK: $($apkfile.FullName)"
+            echo "apkfile=$($apkfile.FullName)" >> $GITHUB_ENV
+          } else {
+            echo "No APK found in app/build/outputs/apk/release"
+            exit 1
+          }
 
       #      - name: Decode and save Firebase service account key
       #        env:
