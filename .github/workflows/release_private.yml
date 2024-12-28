@@ -1,4 +1,4 @@
-name: Build and Deploy APK for test (Upload - Create Artifact To Github Action)
+name: Test Builds Build and Deploy APK for test (Upload - Create Artifact To Github Action)
 
 env:
   # The name of the main module repository
@@ -13,6 +13,18 @@ on:
 
   # Allows you to run this workflows manually from the Actions tab
   workflow_dispatch:
+    inputs:
+      name:
+        description: "Release-Build"
+        default: "Generate release build for tests"
+      testers:
+        type: choice
+        description: "Select testers"
+        options:
+          - testers
+          - android
+          - internalTesters
+          - everyone
 
 jobs:
   build:
@@ -48,6 +60,23 @@ jobs:
       - name: Build gradle project
         run: ./gradlew build
 
+      # This will decode the keystore from base 64 text representation that we have stored in secrets
+      # and generates and keystore file and gets stored in /android-app path
+      - name: Decode Keystore (Ubuntu)
+        if: runner.os == 'Linux'  # Run only on Ubuntu or Linux runners
+        env:
+          ENCODED_STRING: ${{ secrets.KEYSTORE_BASE_64 }}
+        run: |
+          echo "$ENCODED_STRING" | base64 --decode > keystore.jks
+
+      - name: Decode Keystore (Windows)
+        if: runner.os == 'Windows'  # Run only on Windows runners
+        env:
+          ENCODED_STRING: ${{ secrets.KEYSTORE_BASE_64 }}
+        run: |
+          [IO.File]::WriteAllBytes("keystore.jks", [Convert]::FromBase64String($env:ENCODED_STRING))
+
+
       # Create APK Release
       - name: Build apk release project (APK) - ${{ env.main_project_module }} module
         run: ./gradlew assembleRelease --stacktrace
@@ -81,4 +110,4 @@ jobs:
       #          file: ${{ steps.releaseApk.outputs.apkfile }}
 
       - name: Upload to Firebase App Distribution
-        run: ./gradlew appDistributionUploadRelease -PfirebaseAppDistributionFile=${{ github.workspace }}/firebase-service-account-key.json -PfirebaseAppDistributionGroups=testers
+        run: ./gradlew appDistributionUploadRelease -PfirebaseAppDistributionFile=${{ github.workspace }}/firebase-service-account-key.json -PfirebaseAppDistributionGroups=${{ github.event.inputs.testers }}
