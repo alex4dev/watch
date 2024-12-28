@@ -78,12 +78,13 @@ jobs:
 
       # Create APK Release
       - name: Build signed release apk project (APK)
+        if: runner.os == 'Windows'  # Run only on Windows runners
         run: |
-          ./gradlew assembleRelease
-          -PkeyAlias=${{ secrets.KEYSTORE_ALIAS }}
-          -PkeyPassword=${{ secrets.KEYSTORE_PASSWORD }}
-          -PstoreFilePath=${{ github.workspace }}/keystore.jks
-          -PstorePassword=${{ secrets.KEYSTORE_PASSWORD }}
+          ./gradlew assembleRelease `
+            -PkeyAlias="${{ secrets.KEYSTORE_ALIAS }}" `
+            -PkeyPassword="${{ secrets.KEYSTORE_PASSWORD }}" `
+            -PstoreFilePath="${{ github.workspace }}/my-release-key.jks" `
+            -PstorePassword="${{ secrets.KEYSTORE_PASSWORD }}"
 
       - name: Find APK file
         id: releaseApk
