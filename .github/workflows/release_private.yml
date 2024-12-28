@@ -94,11 +94,11 @@ jobs:
           if ($apkfile) {
             echo "Found APK: $($apkfile.FullName)"
             echo "apkfile=$($apkfile.FullName)" >> $GITHUB_OUTPUT
-            echo "::set-output name=apkfile::$($apkfile.FullName)"
           } else {
             echo "No APK found in app/build/outputs/apk/release"
             exit 1
           }
+        shell: powershell
 
       #      - name: Decode and save Firebase service account key
       #        env:
