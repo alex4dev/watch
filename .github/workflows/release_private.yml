@@ -83,7 +83,7 @@ jobs:
           ./gradlew assembleRelease `
             -PkeyAlias="${{ secrets.KEYSTORE_ALIAS }}" `
             -PkeyPassword="${{ secrets.KEYSTORE_PASSWORD }}" `
-            -PstoreFilePath="${{ github.workspace }}/my-release-key.jks" `
+            -PstoreFilePath="${{ github.workspace }}/keystore.jks" `
             -PstorePassword="${{ secrets.KEYSTORE_PASSWORD }}"
 
       - name: Find APK file
@@ -91,7 +91,6 @@ jobs:
         run: |
           $apkfile = Get-ChildItem -Path app/build/outputs/apk/release -Filter *.apk | Select-Object -First 1
           echo "apkfile=$($apkfile.FullName)" >> $GITHUB_OUTPUT
-        shell: powershell
 
       #      - name: Decode and save Firebase service account key
       #        env:
