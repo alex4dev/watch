@@ -90,15 +90,16 @@ jobs:
         id: releaseApk
         run: |
           $apkfile = Get-ChildItem -Path app/build/outputs/apk/release -Filter *.apk | Select-Object -First 1
-              # Check if the file exists and display the path in the logs
+          # Check if the file exists and display the path in the logs
           if ($apkfile) {
             echo "Found APK: $($apkfile.FullName)"
-            echo "apkfile=$($apkfile.FullName)" >> $GITHUB_OUTPUT
+            echo "apkfile=$($apkfile.FullName)" >> $env:GITHUB_OUTPUT
           } else {
             echo "No APK found in app/build/outputs/apk/release"
             exit 1
           }
         shell: powershell
+
 
       #      - name: Decode and save Firebase service account key
       #        env:
@@ -122,4 +123,4 @@ jobs:
       #          file: ${{ steps.releaseApk.outputs.apkfile }}
 
       - name: Upload to Firebase App Distribution
-        run: ./gradlew appDistributionUploadRelease --info -PfirebaseAppDistributionFile=${{ github.workspace }}/firebase-service-account-key.json -PfirebaseAppDistributionGroups=${{ github.event.inputs.testers }} -PapkFilePath="${{ steps.releaseApk.outputs.apkfile }}"
+        run: ./gradlew appDistributionUploadRelease --info -PfirebaseAppDistributionFile=${{ github.workspace }}/firebase-service-account-key.json -PfirebaseAppDistributionGroups=${{ github.event.inputs.testers }} -PapkFilePath="$env:apkfile"
