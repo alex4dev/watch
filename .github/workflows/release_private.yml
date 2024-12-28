@@ -124,3 +124,4 @@ jobs:
 
       - name: Upload to Firebase App Distribution
         run: ./gradlew appDistributionUploadRelease --info -PfirebaseAppDistributionFile=${{ github.workspace }}/firebase-service-account-key.json -PfirebaseAppDistributionGroups=${{ github.event.inputs.testers }} -PapkFilePath="$env:apkfile"
+        shell: powershell
