@@ -55,7 +55,7 @@ jobs:
       - name: Find APK file
         id: releaseApk
         run: |
-          $apkfile = Get-ChildItem -Path app/build/outputs/apk/distributionTest/release -Filter *.apk | Select-Object -First 1
+          $apkfile = Get-ChildItem -Path app/build/outputs/apk/release -Filter *.apk | Select-Object -First 1
           echo "apkfile=$($apkfile.FullName)" >> $GITHUB_OUTPUT
         shell: powershell
 
@@ -81,8 +81,4 @@ jobs:
       #          file: ${{ steps.releaseApk.outputs.apkfile }}
 
       - name: Upload to Firebase App Distribution
-        env:
-          firebaseAppDistributionAppId: ${{ secrets.FIREBASE_APP_ID }}
-          firebaseAppDistributionFile: ${{ github.workspace }}/firebase-service-account-key.json
-          firebaseAppDistributionGroups: testers  # Or any other group
-        run: ./gradlew appDistributionUploadRelease
+        run: ./gradlew appDistributionUploadRelease -PfirebaseAppDistributionFile=${{ github.workspace }}/firebase-service-account-key.json -PfirebaseAppDistributionGroups=testers

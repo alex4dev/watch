@@ -40,16 +40,8 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-
         }
     }
-    flavorDimensions += "version"
-    productFlavors {
-        create("distributionTest") {
-            dimension = "version"
-        }
-    }
-
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
