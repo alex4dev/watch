@@ -1,4 +1,4 @@
-name: Test Builds Build and Deploy APK for test (Upload - Create Artifact To Github Action)
+name: Test Builds (Build and Deploy APK)
 
 env:
   # The name of the main module repository
