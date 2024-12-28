@@ -28,7 +28,7 @@ android {
         create("release") {
             keyAlias = findProperty("keyAlias")?.toString() ?: ""
             keyPassword = findProperty("keyPassword")?.toString() ?: ""
-            storeFile = file(findProperty("storeFilePath")?.toString() ?: "")
+            storeFile = file(findProperty("storeFilePath")?.toString() ?: "/mypath")
             storePassword = findProperty("storePassword")?.toString() ?: ""
         }
     }
