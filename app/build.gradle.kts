@@ -26,10 +26,10 @@ android {
 
     signingConfigs {
         create("release") {
-            keyAlias = findProperty("keyAlias") as String
-            keyPassword = findProperty("keyPassword") as String
-            storeFile = file(findProperty("storeFilePath") as String)
-            storePassword = findProperty("storePassword") as String
+            keyAlias = findProperty("keyAlias")?.toString() ?: ""
+            keyPassword = findProperty("keyPassword")?.toString() ?: ""
+            storeFile = file(findProperty("storeFilePath")?.toString() ?: "")
+            storePassword = findProperty("storePassword")?.toString() ?: ""
         }
     }
 
