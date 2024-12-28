@@ -94,7 +94,6 @@ jobs:
           if ($apkfile) {
             echo "Found APK: $($apkfile.FullName)"
             echo "apkfile=$($apkfile.FullName)" >> $GITHUB_OUTPUT
-            echo "$apkfile var: $($steps.releaseApk.outputs.apkfile)"
           } else {
             echo "No APK found in app/build/outputs/apk/release"
             exit 1
