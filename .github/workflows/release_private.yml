@@ -53,6 +53,10 @@ jobs:
 
       # Run Tests Build
       - name: Run gradle tests
+        env:
+          keyAlias: ${{ secrets.KEYSTORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEYSTORE_PASSWORD }}
+          storePassword: ${{ secrets.KEYSTORE_PASSWORD }}
         run: ./gradlew test
 
       # Run Build Project
