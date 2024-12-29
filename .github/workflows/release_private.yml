@@ -20,10 +20,10 @@ on:
       testers:
         type: choice
         description: "Select testers"
+        default: internal
         options:
-          - testers
-          - internalTesters
-          - everyone
+          - internal
+          - all
 
 jobs:
   build:
@@ -92,6 +92,7 @@ jobs:
 
     steps:
       - name: Find APK file
+        if: runner.os == 'Windows'  # Run only on Windows runners
         id: releaseApk
         run: |
           $apkfile = Get-ChildItem -Path app/build/outputs/apk/release -Filter *.apk | Select-Object -First 1
@@ -112,6 +113,7 @@ jobs:
       #        run: |
       #          echo $CREDENTIAL_FILE_CONTENT | base64 --decode > firebase-service-account-key.json
       - name: Decode and save Firebase service account key
+        if: runner.os == 'Windows'  # Run only on Windows runners
         env:
           FIREBASE_SERVICE_ACCOUNT_KEY: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
         run: |
@@ -128,6 +130,7 @@ jobs:
       #          file: ${{ steps.releaseApk.outputs.apkfile }}
 
       - name: Upload to Firebase App Distribution
+        if: runner.os == 'Windows'  # Run only on Windows runners
         run: |
           ./gradlew appDistributionUploadRelease `
             -PfirebaseAppDistributionFile=${{ github.workspace }}/firebase-service-account-key.json `
