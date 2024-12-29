@@ -20,7 +20,6 @@ on:
       testers:
         type: choice
         description: "Select testers"
-        default: internal
         options:
           - internal
           - all
@@ -39,6 +38,16 @@ jobs:
       # Set Repository Name As Env Variable
       #      - name: Set repository name as env variable
       #        run: echo "repository_name=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')" >> $GITHUB_ENV
+
+      - name: Determine Tester Group
+        id: determine_testers
+        run: |
+          if (-not $env:GITHUB_EVENT_INPUT_TESTERS) {
+            echo "testers=internal" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          } else {
+            echo "testers=$env:GITHUB_EVENT_INPUT_TESTERS" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          }
+        shell: powershell
 
       - name: Set Up JDK
         uses: actions/setup-java@v4
@@ -134,6 +143,6 @@ jobs:
         run: |
           ./gradlew appDistributionUploadRelease `
             -PfirebaseAppDistributionFile=${{ github.workspace }}/firebase-service-account-key.json `
-            -PfirebaseAppDistributionGroups=${{ github.event.inputs.testers }} `
+            -PfirebaseAppDistributionGroups=${{ env.testers }} `
             -PapkFilePath=${{ steps.releaseApk.outputs.apkfile }}
         shell: powershell
