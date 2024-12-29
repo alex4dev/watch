@@ -42,10 +42,10 @@ jobs:
       - name: Determine Tester Group
         id: determine_testers
         run: |
-          if (-not $env:GITHUB_EVENT_INPUT_TESTERS) {
-            echo "testers=internal" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          if (-not $env:GITHUB_EVENT_INPUTS_TESTERS) {
+            "testers=internal" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
           } else {
-            echo "testers=$env:GITHUB_EVENT_INPUT_TESTERS" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+            "testers=$env:GITHUB_EVENT_INPUTS_TESTERS" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
           }
         shell: powershell
 
